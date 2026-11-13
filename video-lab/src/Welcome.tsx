@@ -1,8 +1,8 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { useGsap } from './lib/useGsap';
-import { center, Logo, RAPCO } from './lib/brand';
-import { LOGO, WELCOME } from './content';
+import { center, Logo, RAPCO, Watermark } from './lib/brand';
+import { LOGO, WATERMARK, WELCOME } from './content';
 
 // ترحيب بالموظفين الجدد — 1920×1080 — 15 ثانية
 export const Welcome: React.FC = () => {
@@ -12,14 +12,16 @@ export const Welcome: React.FC = () => {
   const scope = useGsap((tl) => {
     // الخلفية
     tl.from('.ring', { scale: 0, opacity: 0, duration: 1.6, ease: 'expo.out', stagger: 0.12 }, 0)
-      .to('.ring', { rotate: 40, duration: 15, ease: 'none' }, 0);
+      .to('.ring', { rotate: 40, duration: 15, ease: 'none' }, 0)
+      .from('.watermark', { opacity: 0, scale: 0.6, duration: 1.5, ease: 'power2.out' }, 0)
+      .to('.watermark', { rotate: -90, duration: 15, ease: 'none' }, 0);
 
     // المشهد 1 (0 → 3.2ث): الشعار + أهلاً وسهلاً
     tl.from('.logo-wrap', { scale: 0.3, opacity: 0, duration: 1.1, ease: 'back.out(1.6)' }, 0.2)
       .from('.greet-word', { y: 120, opacity: 0, duration: 0.8, ease: 'power4.out', stagger: 0.2 }, 1.0)
       .to('.greet', { opacity: 0, y: 60, duration: 0.4, ease: 'power2.in' }, 2.9)
       // الشعار يصغر ويروح للزاوية العلوية اليمنى
-      .to('.logo-wrap', { x: 720, y: -330, scale: 0.42, duration: 0.9, ease: 'power3.inOut' }, 3.0);
+      .to('.logo-wrap', { x: 640, y: -345, scale: 0.5, duration: 0.9, ease: 'power3.inOut' }, 3.0);
 
     // المشهد 2 (3.5 → 12ث): الأسماء واحد واحد
     tl.from('.intro', { opacity: 0, y: -40, duration: 0.6, ease: 'power3.out' }, 3.5)
@@ -35,7 +37,7 @@ export const Welcome: React.FC = () => {
       .to('.s2', { opacity: 0, scale: 0.92, duration: 0.5, ease: 'power2.in' }, 12.0);
 
     // المشهد 3 (12.3 → 15ث): الختام
-    tl.to('.logo-wrap', { x: 0, y: 190, scale: 0.75, duration: 1, ease: 'power3.inOut' }, 12.1)
+    tl.to('.logo-wrap', { x: 0, y: 200, scale: 0.85, duration: 1, ease: 'power3.inOut' }, 12.1)
       .from('.close-word', { y: 100, opacity: 0, duration: 0.7, ease: 'back.out(1.7)', stagger: 0.12 }, 12.5)
       .from('.close-line', { scaleX: 0, duration: 0.7, ease: 'power3.inOut' }, 13.2);
   });
@@ -47,10 +49,12 @@ export const Welcome: React.FC = () => {
       <div className="ring" style={ring(1000, 1250, 450)} />
       <div className="ring" style={ring(520, 1500, -160)} />
 
+      <Watermark src={WATERMARK} size={1100} left={-330} top={-120} />
+
       {/* الشعار (يتحرك بين المشاهد) */}
       <AbsoluteFill style={{ ...center, marginTop: -120 }}>
         <div className="logo-wrap">
-          <Logo src={LOGO} height={260} />
+          <Logo src={LOGO} height={200} />
         </div>
       </AbsoluteFill>
 

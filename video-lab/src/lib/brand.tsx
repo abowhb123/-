@@ -31,7 +31,7 @@ export const Logo: React.FC<{ src?: string | null; height: number; color?: strin
   className,
 }) =>
   src ? (
-    <Img className={className} src={staticFile(src)} style={{ height, objectFit: 'contain' }} />
+    <Img className={className} src={staticFile(src)} style={{ height, objectFit: 'contain', filter: 'drop-shadow(0 18px 40px rgba(0,0,0,0.3))' }} />
   ) : (
     <div className={className} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color, lineHeight: 1.1 }}>
       <span style={{ fontSize: height * 0.55, fontWeight: 800 }}>الراجحية</span>
@@ -47,3 +47,15 @@ export const center: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
 };
+
+/** علامة مائية: أيقونة الشعار كبيرة وشفافة في الخلفية (تدوّرها GSAP عبر الكلاس watermark) */
+export const Watermark: React.FC<{ src: string | null; size: number; left: number; top: number; opacity?: number }> = ({
+  src,
+  size,
+  left,
+  top,
+  opacity = 0.07,
+}) =>
+  src ? (
+    <Img className="watermark" src={staticFile(src)} style={{ position: 'absolute', width: size, left, top, opacity }} />
+  ) : null;

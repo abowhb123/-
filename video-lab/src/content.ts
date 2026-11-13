@@ -2,7 +2,10 @@
 
 // الشعار: حط الملف في public/ واكتب اسمه هنا، مثلاً 'logo.png'
 // إذا خليته null يطلع شعار نصي مؤقت
-export const LOGO: string | null = null;
+export const LOGO: string | null = 'logos/card-white.png';
+
+// أيقونة بيضاء تدور ببطء في الخلفية (null لإخفائها)
+export const WATERMARK: string | null = 'logos/icon-white.png';
 
 export const JOB_AD = {
   headline: ['نبحث', 'عنك'],

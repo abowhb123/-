@@ -1,8 +1,8 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { useGsap } from './lib/useGsap';
-import { center, Logo, RAPCO } from './lib/brand';
-import { JOB_AD, LOGO } from './content';
+import { center, Logo, RAPCO, Watermark } from './lib/brand';
+import { JOB_AD, LOGO, WATERMARK } from './content';
 
 // إعلان وظيفة — ستوري 1080×1920 — 15 ثانية
 export const JobAd: React.FC = () => {
@@ -11,6 +11,8 @@ export const JobAd: React.FC = () => {
     tl.from('.blob', { scale: 0, duration: 1.4, ease: 'expo.out', stagger: 0.15 }, 0)
       .to('.blob-a', { x: -120, y: 160, duration: 15, ease: 'none' }, 0)
       .to('.blob-b', { x: 140, y: -200, duration: 15, ease: 'none' }, 0)
+      .from('.watermark', { opacity: 0, scale: 0.6, duration: 1.5, ease: 'power2.out' }, 0)
+      .to('.watermark', { rotate: 90, duration: 15, ease: 'none' }, 0)
       .from('.top-logo', { y: -80, opacity: 0, duration: 0.8, ease: 'power3.out' }, 0.2)
       .from('.bottom-bar', { scaleX: 0, transformOrigin: 'right', duration: 1, ease: 'power3.inOut' }, 0.3);
 
@@ -51,9 +53,11 @@ export const JobAd: React.FC = () => {
       <div className="blob blob-b" style={blob(900, 420, 1350, 'rgba(230,231,232,0.07)')} />
       <div className="blob" style={blob(260, 820, 520, 'rgba(205,182,158,0.18)')} />
 
+      <Watermark src={WATERMARK} size={1300} left={-200} top={560} />
+
       {/* الشعار أعلى الشاشة */}
       <div className="top-logo" style={{ position: 'absolute', top: 120, width: '100%', ...center }}>
-        <Logo src={LOGO} height={150} />
+        <Logo src={LOGO} height={160} />
       </div>
       <div className="bottom-bar" style={{ position: 'absolute', bottom: 140, left: 140, right: 140, height: 10, borderRadius: 5, background: RAPCO.beige }} />
 
