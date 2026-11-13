@@ -1,0 +1,8 @@
+node_modules/
+.venv/
+out/manim/
+motion-canvas/output/
+hyperframes-demo/renders/
+*.log
+__pycache__/
+.hyperframes/

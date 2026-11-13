@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* Placeholders: replace all three with the film's own palette and display face. */
+      :root {
+        --ground: #165d4a;
+        --ink: #ffffff;
+        --font-display: Alexandria, sans-serif;
+      }
+      @font-face { font-family: Alexandria; src: url(Alexandria.ttf); }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+      }
+      #title {
+        color: var(--ink);
+        font-size: 120px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="3"
+      data-width="1920"
+      data-height="1080"
+    >
+      <h1 id="title" class="clip" data-start="0" data-duration="3" data-track-index="0">مرحباً من HyperFrames</h1>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#title", { opacity: 0, y: 120, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" }, 0.2);
+      // Example: tl.fromTo("#title", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

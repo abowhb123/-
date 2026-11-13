@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>اختبار المكتبات</title>
+<style>
+@font-face{font-family:Alexandria;src:url(/public/fonts/Alexandria.ttf)}
+body{margin:0;font-family:Alexandria;background:#e6e7e8;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}
+.box{background:#fff;border-radius:12px;height:260px;position:relative;overflow:hidden}
+.box h3{margin:0;padding:8px 12px;background:#165d4a;color:#fff;font-size:18px}
+.sq{width:60px;height:60px;background:#cdb69e;border-radius:10px;position:absolute;top:120px;right:20px}
+</style></head><body>
+<div class="box" id="three"><h3>Three.js</h3></div>
+<div class="box"><h3>Rough.js</h3><svg id="rough" width="380" height="210"></svg></div>
+<div class="box"><h3>GSAP</h3><div class="sq" id="g"></div></div>
+<div class="box"><h3>anime.js</h3><div class="sq" id="a"></div></div>
+<div class="box" id="mo"><h3>mo.js</h3></div>
+<div class="box"><h3>النتيجة</h3><pre id="res" style="font-size:16px;padding:10px;direction:ltr"></pre></div>
+<script src="/node_modules/@mojs/core/dist/mo.umd.js"></script>
+<script type="module">
+import * as THREE from '/node_modules/three/build/three.module.js';
+import rough from '/node_modules/roughjs/bundled/rough.esm.js';
+import { gsap } from '/node_modules/gsap/index.js';
+import { animate } from '/node_modules/animejs/dist/modules/index.js';
+const ok = {};
+// Three.js: مكعب ثلاثي الأبعاد
+const r = new THREE.WebGLRenderer({antialias:true}); r.setSize(380,215);
+document.getElementById('three').appendChild(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#165d4a');
+const cam = new THREE.PerspectiveCamera(50,380/215,0.1,100); cam.position.z=4;
+const cube = new THREE.Mesh(new THREE.BoxGeometry(1.5,1.5,1.5), new THREE.MeshStandardMaterial({color:'#cdb69e'}));
+scene.add(cube, new THREE.AmbientLight(0xffffff,0.6)); const L=new THREE.DirectionalLight(0xffffff,2); L.position.set(2,3,4); scene.add(L);
+cube.rotation.set(0.6,0.8,0); r.render(scene,cam); ok.three = THREE.REVISION;
+// Rough.js: أشكال بخط اليد
+const rc = rough.svg(document.getElementById('rough'));
+const svg = document.getElementById('rough');
+svg.appendChild(rc.rectangle(30,30,140,120,{fill:'#165d4a',fillStyle:'hachure',roughness:2}));
+svg.appendChild(rc.circle(270,95,120,{fill:'#cdb69e',fillStyle:'solid',stroke:'#474345'}));
+ok.rough = svg.childNodes.length;
+// GSAP
+gsap.to('#g',{x:-250,rotation:360,duration:0.5}); 
+// anime.js v4
+animate('#a',{translateX:-250,rotate:'1turn',duration:500});
+// mo.js
+const burst = new mojs.Burst({parent:'#mo',left:'50%',top:'55%',radius:{0:90},count:10,
+  children:{shape:'circle',fill:['#165d4a','#cdb69e','#eca85d'],radius:12,duration:1200}});
+setTimeout(()=>burst.play(),400); ok.mojs = typeof mojs.Burst;
+setTimeout(()=>{
+  ok.gsap = gsap.getProperty('#g','x'); ok.anime = getComputedStyle(document.getElementById('a')).transform;
+  document.getElementById('res').textContent = JSON.stringify(ok,null,1); window.__done = ok;
+},900);
+</script></body></html>

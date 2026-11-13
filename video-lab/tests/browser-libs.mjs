@@ -1,0 +1,17 @@
+import { createRequire } from 'node:module';
+const { chromium } = createRequire(import.meta.url)(process.env.PW || 'playwright');
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { extname, join } from 'node:path';
+const root = new URL('..', import.meta.url).pathname;
+const types = {'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.ttf':'font/ttf'};
+const srv = createServer(async (q,s)=>{ try{ const p=join(root,decodeURIComponent(q.url)); s.writeHead(200,{'content-type':types[extname(p)]||'application/octet-stream'}); s.end(await readFile(p)); }catch{ s.writeHead(404); s.end(); } }).listen(4567);
+const b = await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});
+const pg = await b.newPage({viewport:{width:1200,height:560}});
+const errs=[]; pg.on('pageerror',e=>errs.push(e.message)); pg.on('console',m=>m.type()==='error'&&errs.push(m.text()));
+await pg.goto('http://localhost:4567/tests/browser-libs.html');
+await pg.waitForFunction(()=>window.__done,null,{timeout:10000});
+await pg.waitForTimeout(150);
+console.log(JSON.stringify(await pg.evaluate(()=>window.__done)), 'errors:', errs);
+await pg.screenshot({path: join(root,'out/browser-libs.png')});
+await b.close(); srv.close();
