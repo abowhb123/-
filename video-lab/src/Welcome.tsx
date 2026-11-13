@@ -2,12 +2,23 @@ import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { useGsap } from './lib/useGsap';
 import { center, Logo, RAPCO, Watermark } from './lib/brand';
-import { LOGO, WATERMARK, WELCOME } from './content';
+import { LOGO, MUSIC, WATERMARK, WELCOME } from './content';
+import { Cue, SoundTrack } from './lib/SoundTrack';
 
 // ترحيب بالموظفين الجدد — 1920×1080 — 15 ثانية
 export const Welcome: React.FC = () => {
   const n = WELCOME.employees.length;
   const gap = Math.min(1.3, 6.5 / n); // الفاصل بين ظهور كل اسم
+
+  // المؤثرات الصوتية (بالثواني) — نفس توقيت الحركات
+  const cues: Cue[] = [
+    { at: 0.2, sfx: 'whoosh', volume: 0.6 },
+    { at: 1.0, sfx: 'ding', volume: 0.5 },
+    { at: 3.0, sfx: 'whoosh', volume: 0.4 },
+    ...WELCOME.employees.map((_, i): Cue => ({ at: 4.35 + i * gap, sfx: 'pop' })),
+    { at: 12.0, sfx: 'whoosh', volume: 0.45 },
+    { at: 12.5, sfx: 'ding', volume: 0.55 },
+  ];
 
   const scope = useGsap((tl) => {
     // الخلفية
@@ -44,6 +55,8 @@ export const Welcome: React.FC = () => {
 
   return (
     <AbsoluteFill ref={scope} style={{ background: RAPCO.green, fontFamily: 'Alexandria', direction: 'rtl', overflow: 'hidden', color: RAPCO.grey }}>
+      <SoundTrack music={MUSIC} cues={cues} />
+
       {/* الخلفية: حلقات */}
       <div className="ring" style={ring(1500, -500, -700)} />
       <div className="ring" style={ring(1000, 1250, 450)} />

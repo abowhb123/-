@@ -2,7 +2,22 @@ import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { useGsap } from './lib/useGsap';
 import { center, Logo, RAPCO, Watermark } from './lib/brand';
-import { JOB_AD, LOGO, WATERMARK } from './content';
+import { JOB_AD, LOGO, MUSIC, WATERMARK } from './content';
+import { Cue, SoundTrack } from './lib/SoundTrack';
+
+// المؤثرات الصوتية (بالثواني) — نفس توقيت الحركات
+const CUES: Cue[] = [
+  { at: 0.3, sfx: 'whoosh', volume: 0.6 },
+  { at: 0.45, sfx: 'pop' },
+  { at: 0.7, sfx: 'pop' },
+  { at: 2.8, sfx: 'whoosh', volume: 0.4 },
+  { at: 3.1, sfx: 'pop-high' },
+  { at: 3.35, sfx: 'whoosh', volume: 0.5 },
+  { at: 6.0, sfx: 'whoosh', volume: 0.4 },
+  ...JOB_AD.requirements.map((_, i): Cue => ({ at: 7.0 + i * 0.45, sfx: 'pop-high', volume: 0.45 })),
+  { at: 10.8, sfx: 'whoosh', volume: 0.4 },
+  { at: 11.15, sfx: 'ding', volume: 0.6 },
+];
 
 // إعلان وظيفة — ستوري 1080×1920 — 15 ثانية
 export const JobAd: React.FC = () => {
@@ -48,6 +63,8 @@ export const JobAd: React.FC = () => {
       ref={scope}
       style={{ background: RAPCO.green, fontFamily: 'Alexandria', direction: 'rtl', overflow: 'hidden', color: RAPCO.grey }}
     >
+      <SoundTrack music={MUSIC} cues={CUES} />
+
       {/* الخلفية */}
       <div className="blob blob-a" style={blob(1100, -380, -260, 'rgba(205,182,158,0.14)')} />
       <div className="blob blob-b" style={blob(900, 420, 1350, 'rgba(230,231,232,0.07)')} />

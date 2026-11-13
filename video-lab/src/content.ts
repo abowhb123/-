@@ -7,6 +7,10 @@ export const LOGO: string | null = 'logos/card-white.png';
 // أيقونة بيضاء تدور ببطء في الخلفية (null لإخفائها)
 export const WATERMARK: string | null = 'logos/icon-white.png';
 
+// الموسيقى: ملف داخل public/ (مثلاً 'audio/my-song.mp3')، أو null بدون موسيقى
+// الموجودة الحين مولّدة بالكود عبر tools/make_audio.py وما عليها حقوق
+export const MUSIC: string | null = 'audio/music.wav';
+
 export const JOB_AD = {
   headline: ['نبحث', 'عنك'],
   intro: 'انضم إلى فريق الراجحية',
