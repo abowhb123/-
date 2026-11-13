@@ -13,10 +13,10 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'products', 'حاسبة-نهاية-الخدمة.xlsx')
 
-# ألوان مؤقتة إلى أن نعتمد هوية المتجر
-DARK = '1F3A5F'
-ACCENT = 'C9A227'
-LIGHT = 'F4F6F9'
+# ألوان هوية سنعها
+DARK = '2B2D6E'  # نيلي سنعها
+ACCENT = 'F4A62A'  # زعفراني
+LIGHT = 'FFF8EC'  # كريمي
 INPUT = 'FFF4CC'
 FONT = 'Alexandria'
 
@@ -98,7 +98,7 @@ ws['B2'] = 'حاسبة مكافأة نهاية الخدمة'
 ws['B2'].font, ws['B2'].fill, ws['B2'].alignment = f(20, True, 'FFFFFF'), fill(DARK), CENTER
 ws.row_dimensions[2].height = 44
 ws.merge_cells('B3:E3')
-ws['B3'] = 'وفق نظام العمل السعودي (المواد 84 و85 و87) · عبّئ الخانات الصفراء فقط'
+ws['B3'] = 'سنعها · وفق نظام العمل السعودي (المواد 84 و85 و87) · عبّئ الخانات الصفراء فقط'
 ws['B3'].font, ws['B3'].alignment = f(10, color='667085'), CENTER
 
 
