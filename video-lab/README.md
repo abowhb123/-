@@ -81,3 +81,15 @@ apt-get install -y libpango1.0-dev espeak-ng   # Manim + صوت تجريبي
 3. في الريل: `live={{ dir: 'character/dreamina/idle02-frames', count: عدد_الفريمات }}`
 
 > قبل النشر التجاري: تأكد من شروط Dreamina لاستخدام المقاطع تجارياً.
+
+## إنتاج ريلز إتشارو (الطريقة المعتمدة)
+1. **أبو فواز يصوّر نفسه** يقرأ السكربت (جوال، كاميرا أمامية، طولي، من الصدر وفوق).
+2. **Runway Act-Two:** فيديو أبو فواز (driving) + صورة إتشارو ← إتشارو يقلّد الحركة والشفايف.
+3. **الصوت:** Voice Changer (صوت "ابو وهب" بلهجة ومخارج أبو فواز) + توقيت الكلمات:
+   ```bash
+   .venv/bin/python tools/voice_changer.py recording.mp4 public/character/vo/itsharo-02 --script "نص السكربت"
+   cp public/character/vo/itsharo-02.words.json src/data/
+   ```
+4. **القالب:** `src/itsharo/` (المشاهد، والملصقات، والترجمة، وشريط التقدّم).
+
+> النطق الآلي بدون تصوير (TTS): `tools/tts_best.py` بنموذج Turbo v2.5 وإعدادات الصوت الافتراضية.
