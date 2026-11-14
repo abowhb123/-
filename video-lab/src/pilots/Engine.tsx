@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Audio, Easing, interpolate, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Captions, Word } from '../lib/Captions';
 import { LiveCharacter } from '../characters/LiveCharacter';
+import { LipSyncPortrait } from '../characters/LipSync';
 
 /**
  * محرّك ريلز المشاهد (النسخة 2)
@@ -81,7 +82,8 @@ export const SceneReel: React.FC<{
   scenes: Scene[];
   punch?: number[]; // كلمات فيها تقريب سريع
   sfx?: React.ReactNode;
-}> = ({ series, voice, words, scenes, punch = [], sfx }) => {
+  character?: 'lipsync' | 'live'; // lipsync: الفم يطابق الكلام · live: حركة Dreamina
+}> = ({ series, voice, words, scenes, punch = [], sfx, character = 'lipsync' }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -129,7 +131,11 @@ export const SceneReel: React.FC<{
 
         {/* الكاركتر */}
         <div style={{ position: 'absolute', left: L('x'), top: L('y'), opacity: L('o') }}>
-          <LiveCharacter dir="character/dreamina/idle01-frames" count={447} width={L('w')} />
+          {character === 'live' ? (
+            <LiveCharacter dir="character/dreamina/idle01-frames" count={447} width={L('w')} />
+          ) : (
+            <LipSyncPortrait words={words} delay={D} width={L('w')} />
+          )}
         </div>
       </AbsoluteFill>
 
