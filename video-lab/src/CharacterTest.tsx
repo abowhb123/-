@@ -4,7 +4,8 @@ import { useGsap } from './lib/useGsap';
 import { Portrait } from './characters/Portrait';
 
 // ألوان سنعها
-export const SANAHA = { indigo: '#2B2D6E', saffron: '#F4A62A', cream: '#FFF8EC', mint: '#2FB58E', ink: '#1A1B3A' };
+// indigo = اللون الأساسي (تركوازي) · saffron = لون التمييز (رملي)
+export const SANAHA = { indigo: '#0F5E63', saffron: '#E9A35B', cream: '#F7F3EC', mint: '#3BB273', ink: '#0B2E30' };
 
 const VOICE = 'audio/voice-sample.wav'; // ← بيتبدّل بتسجيلك
 const LINE = ['تعبت', 'من', 'حساب', 'نهاية', 'الخدمة؟', 'سنّعها', 'بملف', 'واحد!'];
@@ -29,7 +30,7 @@ export const CharacterTest: React.FC = () => {
         className="bubble"
         style={{
           position: 'absolute', top: 330, left: 90, right: 90, background: '#fff', borderRadius: 50, padding: '50px 60px',
-          boxShadow: '0 20px 60px rgba(43,45,110,0.15)', display: 'flex', flexWrap: 'wrap', gap: '10px 22px', justifyContent: 'center',
+          boxShadow: '0 20px 60px rgba(15,94,99,0.15)', display: 'flex', flexWrap: 'wrap', gap: '10px 22px', justifyContent: 'center',
         }}
       >
         {LINE.map((w, i) => (

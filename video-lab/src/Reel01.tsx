@@ -40,7 +40,7 @@ export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh' }> = ({ headwear = 
         className="card"
         style={{
           position: 'absolute', top: 250, left: 80, right: 80, height: 470, borderRadius: 36, overflow: 'hidden',
-          background: '#fff', boxShadow: '0 30px 70px rgba(43,45,110,0.25)', border: `6px solid ${SANAHA.indigo}`,
+          background: '#fff', boxShadow: '0 30px 70px rgba(15,94,99,0.25)', border: `6px solid ${SANAHA.indigo}`,
         }}
       >
         <div className="sheet" style={{ position: 'absolute', top: 0, right: 0, width: 1460, marginRight: -40 }}>

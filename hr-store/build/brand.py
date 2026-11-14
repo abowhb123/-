@@ -15,11 +15,11 @@ FONT = os.path.join(ROOT, '..', 'video-lab', 'public', 'fonts', 'Alexandria.ttf'
 os.makedirs(OUT, exist_ok=True)
 
 C = {
-    'indigo': '#2B2D6E',
-    'saffron': '#F4A62A',
-    'cream': '#FFF8EC',
-    'mint': '#2FB58E',
-    'ink': '#1A1B3A',
+    'indigo': '#0F5E63',   # تركوازي (اللون الأساسي)
+    'saffron': '#E9A35B',  # رملي (لون التمييز)
+    'cream': '#F7F3EC',
+    'mint': '#3BB273',
+    'ink': '#0B2E30',
 }
 
 blob = hb.Blob.from_file_path(FONT)
@@ -94,12 +94,12 @@ def stacked(text_color, mark_bg, check, bg=None, name='logo-stacked'):
 
 
 # على الخلفيات الفاتحة
-horizontal(C['indigo'], '#5B5E8C', C['indigo'], C['saffron'], name='logo-horizontal')
+horizontal(C['indigo'], '#4E7C7F', C['indigo'], C['saffron'], name='logo-horizontal')
 stacked(C['indigo'], C['indigo'], C['saffron'], name='logo-stacked')
 # على الخلفيات الداكنة
-horizontal(C['cream'], '#C9CAE6', C['saffron'], C['indigo'], name='logo-horizontal-dark')
+horizontal(C['cream'], '#CFE3E2', C['saffron'], C['indigo'], name='logo-horizontal-dark')
 stacked(C['cream'], C['saffron'], C['indigo'], name='logo-stacked-dark')
 # العلامة لحالها (أيقونة الحساب والمتجر)
 open(os.path.join(OUT, 'mark.svg'), 'w').write(svg(512, 512, mark(0, 0, 512)))
-open(os.path.join(OUT, 'mark-saffron.svg'), 'w').write(svg(512, 512, mark(0, 0, 512, C['saffron'], C['indigo'], 'rgba(43,45,110,0.12)')))
+open(os.path.join(OUT, 'mark-saffron.svg'), 'w').write(svg(512, 512, mark(0, 0, 512, C['saffron'], C['indigo'], 'rgba(15,94,99,0.14)')))
 print('✓ marks')

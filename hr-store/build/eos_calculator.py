@@ -14,9 +14,9 @@ from openpyxl.worksheet.datavalidation import DataValidation
 OUT = os.path.join(os.path.dirname(__file__), '..', 'products', 'حاسبة-نهاية-الخدمة.xlsx')
 
 # ألوان هوية سنعها
-DARK = '2B2D6E'  # نيلي سنعها
-ACCENT = 'F4A62A'  # زعفراني
-LIGHT = 'FFF8EC'  # كريمي
+DARK = '0F5E63'  # تركوازي سنعها
+ACCENT = 'E9A35B'  # رملي
+LIGHT = 'F7F3EC'  # كريمي
 INPUT = 'FFF4CC'
 FONT = 'Alexandria'
 

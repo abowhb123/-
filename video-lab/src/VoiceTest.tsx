@@ -40,7 +40,7 @@ export const VoiceTest: React.FC<{ headwear: 'hair' | 'shmagh'; words: Word[] }>
               key={start + i}
               style={{
                 fontSize: 74, fontWeight: 800, padding: '4px 14px', borderRadius: 18,
-                color: active ? SANAHA.indigo : said ? SANAHA.indigo : 'rgba(43,45,110,0.3)',
+                color: active ? SANAHA.indigo : said ? SANAHA.indigo : 'rgba(15,94,99,0.3)',
                 background: active ? SANAHA.saffron : 'transparent',
                 transform: `scale(${active ? 1.08 : 1})`,
               }}
