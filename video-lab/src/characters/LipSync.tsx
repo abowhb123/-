@@ -67,7 +67,8 @@ export const LipSyncPortrait: React.FC<{
   const { fps } = useVideoConfig();
   const track = React.useMemo(() => visemeTrack(words), [words]);
 
-  // تبديل حاد ونظيف (بدون مزج يسبب ظل مزدوج)، وكل شكل يثبت فريمين على الأقل عشان ما يرجف
+  // تبديل حاد ونظيف (بدون مزج يسبب ظل مزدوج)، وكل شكل يثبت 4 فريمات (≈ 0.13 ثانية) عشان الحركة تكون هادية
+  const MIN_HOLD = 4;
   const seq = React.useMemo(() => {
     const total = Math.ceil((delay + (words.length ? words[words.length - 1].e : 0) + 3) * fps);
     const out: Viseme[] = [];
@@ -75,7 +76,7 @@ export const LipSyncPortrait: React.FC<{
     let held = 99;
     for (let f = 0; f < total; f++) {
       const v = visemeAt(track, f / fps - delay + 0.02); // سبق بسيط: الفم يتحرك قبل الصوت بلحظة مثل الواقع
-      if (v !== cur && held >= 2) {
+      if (v !== cur && held >= MIN_HOLD) {
         cur = v;
         held = 0;
       }

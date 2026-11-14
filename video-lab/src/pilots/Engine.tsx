@@ -22,7 +22,7 @@ export type Scene = { at: number; layout: Layout; content: React.ReactNode };
 const LAYOUT: Record<Layout, { w: number; x: number; y: number; o: number; cap: number; capColor: string; bg: string; circle: number }> = {
   hook: { w: 1200, x: -60, y: 900, o: 1, cap: 745, capColor: C.teal, bg: C.cream, circle: 1 },
   cta: { w: 1200, x: -60, y: 900, o: 1, cap: 745, capColor: C.teal, bg: C.cream, circle: 1 },
-  card: { w: 700, x: -110, y: 1350, o: 1, cap: 1185, capColor: C.teal, bg: C.cream, circle: 1 },
+  card: { w: 700, x: -110, y: 1350, o: 1, cap: 1040, capColor: C.teal, bg: C.cream, circle: 1 },
   side: { w: 900, x: -250, y: 1080, o: 1, cap: 230, capColor: C.teal, bg: C.cream, circle: 1 },
   full: { w: 900, x: 90, y: 2100, o: 0, cap: 1420, capColor: C.cream, bg: C.teal, circle: 0 },
 };

@@ -12,7 +12,7 @@ export const V3 = w3 as Word[];
 // مكان المحتوى حسب التخطيط
 const AREA: Record<string, React.CSSProperties> = {
   hook: { position: 'absolute', top: 190, left: 60, right: 60, height: 530, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 20 },
-  card: { position: 'absolute', top: 210, left: 60, right: 60, height: 930, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 26 },
+  card: { position: 'absolute', top: 200, left: 60, right: 60, height: 820, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 26 },
   side: { position: 'absolute', top: 400, left: 460, right: 50, height: 700, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 },
   full: { position: 'absolute', top: 260, left: 70, right: 70, height: 1080, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 30 },
 };
