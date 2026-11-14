@@ -19,8 +19,8 @@ VOICE_ID = 'eZLVMA6wnkWDKeL1JDhx'  # ابو وهب
 API = 'https://api.elevenlabs.io/v1'
 
 
-# الافتراضي = إعدادات صوت "ابو وهب" في ElevenLabs (الأقرب للصوت الأصلي ومخارج الحروف)
-def tts(text, out_base, model='eleven_multilingual_v2', stability=0.5, similarity=0.75, style=0.0):
+# الافتراضي = نموذج Turbo v2.5 (اختيار أبو فواز: الأقرب لصوته) + إعدادات الصوت الافتراضية
+def tts(text, out_base, model='eleven_turbo_v2_5', stability=0.5, similarity=0.75, style=0.0):
     body = {
         'text': text,
         'model_id': model,
@@ -67,6 +67,6 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('text')
     p.add_argument('out_base')
-    p.add_argument('--model', default='eleven_multilingual_v2')
+    p.add_argument('--model', default='eleven_turbo_v2_5')
     a = p.parse_args()
     tts(a.text, a.out_base, a.model)

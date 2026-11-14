@@ -38,7 +38,7 @@ if __name__ == '__main__':
     p.add_argument('text')
     p.add_argument('out_base')
     p.add_argument('--takes', type=int, default=3)
-    p.add_argument('--model', default='eleven_multilingual_v2')
+    p.add_argument('--model', default='eleven_turbo_v2_5')
     a = p.parse_args()
 
     from faster_whisper import WhisperModel
