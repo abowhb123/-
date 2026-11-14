@@ -38,7 +38,7 @@ export const Portrait: React.FC<PortraitProps> = ({
     const bins = visualizeAudio({ fps, frame: f, audioData, numberOfSamples: 32, optimizeFor: 'speed' });
     level = bins.slice(1, 10).reduce((a, b) => a + b, 0) / 9;
   }
-  const talk = Math.min(1, Math.max(0, (level - 0.012) * 14));
+  const talk = Math.min(1, Math.max(0, (level - 0.01) * 16));
 
   // رمشة كل 3.4 ثانية تقريباً (فريمين)
   const blinking = frame % Math.round(fps * 3.4) < 3;
@@ -60,7 +60,7 @@ export const Portrait: React.FC<PortraitProps> = ({
       }}
     >
       <Img src={staticFile(base)} style={layer} />
-      {mouthOpen && <Img src={staticFile(mouthOpen)} style={{ ...layer, opacity: talk > 0.35 ? 1 : 0 }} />}
+      {mouthOpen && <Img src={staticFile(mouthOpen)} style={{ ...layer, opacity: Math.min(1, Math.max(0, (talk - 0.12) / 0.4)) }} />}
       {eyesClosed && <Img src={staticFile(eyesClosed)} style={{ ...layer, opacity: blinking ? 1 : 0 }} />}
     </div>
   );

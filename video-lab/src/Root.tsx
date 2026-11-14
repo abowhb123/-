@@ -5,6 +5,8 @@ import { JobAd } from './JobAd';
 import { Welcome } from './Welcome';
 import { CharacterTest } from './CharacterTest';
 import { CharacterSheet } from './CharacterSheet';
+import { VoiceTest } from './VoiceTest';
+import words from './data/voice-preview.words.json';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -17,5 +19,7 @@ export const RemotionRoot: React.FC = () => (
     {/* تجربة شخصية سنعها */}
     <Composition id="CharacterTest" component={CharacterTest} durationInFrames={270} fps={30} width={1080} height={1920} />
     <Composition id="CharacterSheet" component={CharacterSheet} durationInFrames={1} fps={30} width={1760} height={720} />
+    <Composition id="VoiceTestHair" component={VoiceTest} durationInFrames={420} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'hair' as const, words }} />
+    <Composition id="VoiceTestShmagh" component={VoiceTest} durationInFrames={420} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'shmagh' as const, words }} />
   </>
 );
