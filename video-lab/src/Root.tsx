@@ -25,5 +25,6 @@ export const RemotionRoot: React.FC = () => (
     {/* ريلز سنعها */}
     <Composition id="Reel01" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'shmagh' as const }} />
     <Composition id="Reel01Hair" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'hair' as const }} />
+    <Composition id="Reel01Live" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'shmagh' as const, live: { dir: 'character/dreamina/idle01-frames', count: 447 } }} />
   </>
 );

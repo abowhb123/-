@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Img, Sequence, staticFile } from 'remotion';
 import { useGsap } from './lib/useGsap';
 import { Captions, Word } from './lib/Captions';
 import { Portrait } from './characters/Portrait';
+import { LiveCharacter } from './characters/LiveCharacter';
 import { SANAHA } from './CharacterTest';
 import words from './data/reel01.words.json';
 
@@ -13,7 +14,10 @@ const at = (i: number) => D + W[i].s;
 const CHUNKS: [number, number][] = [[0, 2], [3, 4], [5, 7], [8, 9], [10, 12], [13, 15], [16, 18], [19, 19], [20, 21], [22, 23], [24, 26]];
 export const REEL01_FRAMES = Math.ceil((D + W[W.length - 1].e + 3.2) * 30);
 
-export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh' }> = ({ headwear = 'shmagh' }) => {
+export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh'; live?: { dir: string; count: number } | null }> = ({
+  headwear = 'shmagh',
+  live = null,
+}) => {
   const scope = useGsap((tl) => {
     tl.from('.logo', { y: -80, opacity: 0, duration: 0.6, ease: 'power3.out' }, 0)
       .from('.char', { y: 500, duration: 0.9, ease: 'back.out(1.3)' }, 0)
@@ -64,6 +68,9 @@ export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh' }> = ({ headwear = 
 
       {/* الكاركتر */}
       <div className="char" style={{ position: 'absolute', bottom: -60, left: 0 }}>
+        {live ? (
+          <LiveCharacter dir={live.dir} count={live.count} width={1080} />
+        ) : (
         <Portrait
           voice="character/vo/reel01.mp3"
           delay={Math.round(D * 30)}
@@ -72,6 +79,7 @@ export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh' }> = ({ headwear = 
           mouthOpen="character/mouth-open.png"
           eyesClosed="character/eyes-closed.png"
         />
+        )}
       </div>
 
       {/* الترجمة */}
