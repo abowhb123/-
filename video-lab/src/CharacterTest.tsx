@@ -23,7 +23,7 @@ export const CharacterTest: React.FC = () => {
   return (
     <AbsoluteFill ref={scope} style={{ background: SANAHA.cream, fontFamily: 'Alexandria', direction: 'rtl', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', width: 1400, height: 1400, borderRadius: '50%', background: SANAHA.indigo, left: -160, top: 1080 }} />
-      <Img className="logo" src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 90, left: '50%', marginLeft: -280, width: 560 }} />
+      <Img className="logo" src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 90, left: '50%', marginLeft: -190, width: 380 }} />
 
       {/* فقاعة الكلام */}
       <div

@@ -1,11 +1,15 @@
 """
-يبني هوية "سنعها": الشعار بصيغ SVG (النص محوّل لمسارات، فما يحتاج الخط)
+هوية "سنعها" النهائية — الشعار (ب): نقطة النون صارت ✓
+النص محوّل لمسارات (ما يحتاج الخط عند أحد)
+
 التشغيل: video-lab/.venv/bin/python hr-store/build/brand.py
 الناتج: hr-store/brand/
 """
 import os
 
 import uharfbuzz as hb
+from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.recordingPen import RecordingPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
@@ -14,92 +18,112 @@ OUT = os.path.join(ROOT, 'brand')
 FONT = os.path.join(ROOT, '..', 'video-lab', 'public', 'fonts', 'Alexandria.ttf')
 os.makedirs(OUT, exist_ok=True)
 
-C = {
-    'indigo': '#0F5E63',   # تركوازي (اللون الأساسي)
-    'saffron': '#E9A35B',  # رملي (لون التمييز)
-    'cream': '#F7F3EC',
-    'mint': '#3BB273',
-    'ink': '#0B2E30',
-}
+TEAL = '#0F5E63'   # الأساسي
+SAND = '#E9A35B'   # التمييز (علامة ✓)
+CREAM = '#F7F3EC'
+INK = '#0B2E30'
+TAG_LIGHT = '#4E7C7F'
+TAG_DARK = '#CFE3E2'
 
-blob = hb.Blob.from_file_path(FONT)
-face = hb.Face(blob)
+face = hb.Face(hb.Blob.from_file_path(FONT))
 UPEM = face.upem
 
 
-def text_path(text, weight=800, size=100):
-    """يرجّع (مسار SVG، العرض، الارتفاع فوق الخط، النزول) لنص عربي مشكّل صح"""
+def _contours(font, gid):
+    rec = RecordingPen()
+    font.draw_glyph_with_pen(gid, rec)
+    out, cur = [], []
+    for op, args in rec.value:
+        cur.append((op, args))
+        if op in ('closePath', 'endPath'):
+            out.append(cur)
+            cur = []
+    return out
+
+
+def _bbox(c):
+    bp, r = BoundsPen(None), RecordingPen()
+    r.value = c
+    r.replay(bp)
+    return bp.bounds
+
+
+def text_path(text, size, weight=800, dot_cluster=None):
+    """يرجّع: المسار، العرض، ومكان النقطة المحذوفة (x, y, عرضها) إذا طلبنا"""
     font = hb.Font(face)
     font.set_variations({'wght': weight})
     buf = hb.Buffer()
     buf.add_str(text)
     buf.guess_segment_properties()
     hb.shape(font, buf, {})
-    scale = size / UPEM
+    s = size / UPEM
     pen = SVGPathPen(None)
-    x = 0
+    x, dot = 0, None
     for info, pos in zip(buf.glyph_infos, buf.glyph_positions):
-        tp = TransformPen(pen, (scale, 0, 0, -scale, (x + pos.x_offset) * scale, -pos.y_offset * scale))
-        font.draw_glyph_with_pen(info.codepoint, tp)
+        cs = _contours(font, info.codepoint)
+        if dot_cluster is not None and info.cluster == dot_cluster and len(cs) > 1:
+            bbs = [_bbox(c) for c in cs]
+            k = max(range(len(bbs)), key=lambda j: bbs[j][1])  # الأعلى = النقطة
+            b = bbs[k]
+            dot = ((x + pos.x_offset + (b[0] + b[2]) / 2) * s, -(b[1] + b[3]) / 2 * s, (b[2] - b[0]) * s)
+            cs = cs[:k] + cs[k + 1:]
+        tp = TransformPen(pen, (s, 0, 0, -s, (x + pos.x_offset) * s, -pos.y_offset * s))
+        for c in cs:
+            r = RecordingPen()
+            r.value = c
+            r.replay(tp)
         x += pos.x_advance
-    ext = font.get_font_extents('ltr')
-    return pen.getCommands(), x * scale, ext.ascender * scale, -ext.descender * scale
+    return pen.getCommands(), x * s, dot
 
 
-def mark(x, y, s, bg=C['indigo'], check=C['saffron'], grid='rgba(255,255,255,0.14)'):
-    """العلامة: خانة Excel فيها ✓"""
-    r = s * 0.24
-    w = s * 0.085
-    return f'''
-  <g transform="translate({x},{y})">
-    <rect width="{s}" height="{s}" rx="{r}" fill="{bg}"/>
-    <path d="M{s*0.36} {s*0.08}V{s*0.92}M{s*0.08} {s*0.36}H{s*0.92}" stroke="{grid}" stroke-width="{s*0.025}"/>
-    <path d="M{s*0.27} {s*0.53} L{s*0.44} {s*0.70} L{s*0.75} {s*0.32}" fill="none" stroke="{check}"
-          stroke-width="{w*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>'''
+def check(cx, cy, w, color):
+    sw = w * 0.24
+    return (f'<path d="M{cx - w * 0.5:.1f} {cy:.1f} L{cx - w * 0.12:.1f} {cy + w * 0.38:.1f} L{cx + w * 0.55:.1f} {cy - w * 0.42:.1f}" '
+            f'fill="none" stroke="{color}" stroke-width="{sw:.1f}" stroke-linecap="round" stroke-linejoin="round"/>')
 
 
-def svg(w, h, body, bg=None):
-    bg_rect = f'<rect width="{w}" height="{h}" fill="{bg}"/>' if bg else ''
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">{bg_rect}{body}\n</svg>\n'
+def wordmark(x, base, size, color, check_color):
+    """كلمة سنعها ونقطة النون ✓. x = بداية الكلمة، base = خط الكتابة"""
+    d, w, dot = text_path('سنعها', size, 800, dot_cluster=1)
+    cx, cy, dw = x + dot[0], base + dot[1], dot[2]
+    body = f'<path transform="translate({x:.1f},{base:.1f})" d="{d}" fill="{color}"/>'
+    body += check(cx + dw * 0.15, cy - dw * 0.45, dw * 2.3, check_color)
+    return body, w
 
 
-def horizontal(text_color, tag_color, mark_bg, check, bg=None, name='logo-horizontal'):
-    word, ww, asc, desc = text_path('سنعها', 800, 150)
-    tag, tw, tasc, tdesc = text_path('أدوات الموارد البشرية جاهزة', 400, 40)
-    pad, m = 40, 170
-    gap = 36
-    text_w = max(ww, tw)
-    W = pad + text_w + gap + m + pad
-    H = pad + 150 + 120 + pad
-    # RTL: العلامة يمين، والنص يسارها
-    mx = W - pad - m
-    base = pad + 128
-    body = mark(mx, (H - m) / 2, m, mark_bg, check)
-    body += f'\n  <path transform="translate({mx - gap - ww},{base})" d="{word}" fill="{text_color}"/>'
-    body += f'\n  <path transform="translate({mx - gap - tw},{base + 108})" d="{tag}" fill="{tag_color}"/>'
-    open(os.path.join(OUT, f'{name}.svg'), 'w').write(svg(round(W), round(H), body, bg))
-    print('✓', name, round(W), round(H))
+def svg(name, w, h, body, bg=None):
+    rect = f'<rect width="{w:.0f}" height="{h:.0f}" fill="{bg}"/>' if bg else ''
+    with open(os.path.join(OUT, name), 'w') as f:
+        f.write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w:.0f} {h:.0f}" width="{w:.0f}" height="{h:.0f}">{rect}{body}\n</svg>\n')
+    print('✓', name, f'{w:.0f}×{h:.0f}')
 
 
-def stacked(text_color, mark_bg, check, bg=None, name='logo-stacked'):
-    word, ww, asc, desc = text_path('سنعها', 800, 170)
-    m, pad = 220, 50
-    W = max(ww, m) + pad * 2
-    H = pad + m + 40 + 200 + pad
-    body = mark((W - m) / 2, pad, m, mark_bg, check)
-    body += f'\n  <path transform="translate({(W - ww) / 2},{pad + m + 40 + 150})" d="{word}" fill="{text_color}"/>'
-    open(os.path.join(OUT, f'{name}.svg'), 'w').write(svg(round(W), round(H), body, bg))
-    print('✓', name, round(W), round(H))
+# 1) الشعار الأساسي
+for name, col, chk in [('logo.svg', TEAL, SAND), ('logo-dark.svg', CREAM, SAND)]:
+    _, w, _ = text_path('سنعها', 200)
+    body, _ = wordmark(40, 250, 200, col, chk)
+    svg(name, w + 80, 330, body)
 
+# 2) الشعار مع العبارة
+for name, col, tagc in [('logo-tagline.svg', TEAL, TAG_LIGHT), ('logo-tagline-dark.svg', CREAM, TAG_DARK)]:
+    _, w, _ = text_path('سنعها', 200)
+    tag, tw, _ = text_path('أدوات الموارد البشرية جاهزة', 400 * 0 + 46, 400)
+    W = max(w, tw) + 80
+    body, _ = wordmark((W - w) / 2, 250, 200, col, SAND)
+    body += f'<path transform="translate({(W - tw) / 2:.1f},356)" d="{tag}" fill="{tagc}"/>'
+    svg(name, W, 390, body)
 
-# على الخلفيات الفاتحة
-horizontal(C['indigo'], '#4E7C7F', C['indigo'], C['saffron'], name='logo-horizontal')
-stacked(C['indigo'], C['indigo'], C['saffron'], name='logo-stacked')
-# على الخلفيات الداكنة
-horizontal(C['cream'], '#CFE3E2', C['saffron'], C['indigo'], name='logo-horizontal-dark')
-stacked(C['cream'], C['saffron'], C['indigo'], name='logo-stacked-dark')
-# العلامة لحالها (أيقونة الحساب والمتجر)
-open(os.path.join(OUT, 'mark.svg'), 'w').write(svg(512, 512, mark(0, 0, 512)))
-open(os.path.join(OUT, 'mark-saffron.svg'), 'w').write(svg(512, 512, mark(0, 0, 512, C['saffron'], C['indigo'], 'rgba(15,94,99,0.14)')))
-print('✓ marks')
+# 3) صورة الحساب: دائرة فيها الكلمة
+S = 512
+_, w, _ = text_path('سنعها', 118)
+body = f'<circle cx="{S / 2}" cy="{S / 2}" r="{S / 2}" fill="{TEAL}"/>'
+b, _ = wordmark((S - w) / 2, S / 2 + 58, 118, CREAM, SAND)
+svg('avatar.svg', S, S, body + b)
+
+# 4) العلامة المختصرة: "ن" ونقطتها ✓
+d, w, dot = text_path('ن', 330, 800, dot_cluster=0)
+body = f'<rect width="{S}" height="{S}" rx="120" fill="{TEAL}"/>'
+x, base = (S - w) / 2, S / 2 + 40
+body += f'<path transform="translate({x:.1f},{base:.1f})" d="{d}" fill="{CREAM}"/>'
+body += check(x + dot[0] + dot[2] * 0.15, base + dot[1] - dot[2] * 0.3, dot[2] * 2.0, SAND)
+svg('mark.svg', S, S, body)

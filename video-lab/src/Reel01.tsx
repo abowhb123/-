@@ -33,7 +33,7 @@ export const Reel01: React.FC<{ headwear?: 'hair' | 'shmagh' }> = ({ headwear = 
   return (
     <AbsoluteFill ref={scope} style={{ background: SANAHA.cream, fontFamily: 'Alexandria', direction: 'rtl', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', width: 1500, height: 1500, borderRadius: '50%', background: SANAHA.indigo, left: -210, top: 1000 }} />
-      <Img className="logo" src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 70, left: '50%', marginLeft: -230, width: 460 }} />
+      <Img className="logo" src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 70, left: '50%', marginLeft: -170, width: 340 }} />
 
       {/* بطاقة الحاسبة */}
       <div

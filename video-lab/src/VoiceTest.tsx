@@ -19,7 +19,7 @@ export const VoiceTest: React.FC<{ headwear: 'hair' | 'shmagh'; words: Word[] }>
   return (
     <AbsoluteFill style={{ background: SANAHA.cream, fontFamily: 'Alexandria', direction: 'rtl', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', width: 1500, height: 1500, borderRadius: '50%', background: SANAHA.indigo, left: -210, top: 900 }} />
-      <Img src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 90, left: '50%', marginLeft: -260, width: 520 }} />
+      <Img src={staticFile('logos/sanaha-horizontal.svg')} style={{ position: 'absolute', top: 90, left: '50%', marginLeft: -190, width: 380 }} />
       <div style={{ position: 'absolute', bottom: -40, left: 0 }}>
         <Portrait
           voice="character/voice-preview.mp3"
