@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, Audio, Img, Sequence, staticFile } from 'remotion';
 import { useGsap } from './lib/useGsap';
-import { TalkingSaudi } from './characters/TalkingSaudi';
+import { Portrait } from './characters/Portrait';
 
 // ألوان سنعها
 export const SANAHA = { indigo: '#2B2D6E', saffron: '#F4A62A', cream: '#FFF8EC', mint: '#2FB58E', ink: '#1A1B3A' };
@@ -44,8 +44,8 @@ export const CharacterTest: React.FC = () => {
         <div style={{ position: 'absolute', bottom: -38, right: 360, width: 0, height: 0, borderLeft: '40px solid transparent', borderRight: '40px solid transparent', borderTop: '44px solid #fff' }} />
       </div>
 
-      <div className="char" style={{ position: 'absolute', bottom: -30, left: 10 }}>
-        <TalkingSaudi voice={VOICE} width={1060} delay={15} />
+      <div className="char" style={{ position: 'absolute', bottom: -60, left: 0 }}>
+        <Portrait voice={VOICE} width={1080} delay={15} />
       </div>
 
       <Sequence from={15}>
