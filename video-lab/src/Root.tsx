@@ -7,6 +7,8 @@ import { CharacterTest } from './CharacterTest';
 import { CharacterSheet } from './CharacterSheet';
 import { VoiceTest } from './VoiceTest';
 import { Reel01, REEL01_FRAMES } from './Reel01';
+import { Pilot1, Pilot2, Pilot3, W1, W2, W3 } from './pilots/Pilots';
+import { framesFor } from './pilots/ReelShell';
 import words from './data/voice-preview.words.json';
 
 export const RemotionRoot: React.FC = () => (
@@ -26,5 +28,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Reel01Presenter" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'shmagh' as const }} />
     <Composition id="Reel01Hair" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'hair' as const }} />
     <Composition id="Reel01" component={Reel01} durationInFrames={REEL01_FRAMES} fps={30} width={1080} height={1920} defaultProps={{ headwear: 'shmagh' as const, live: { dir: 'character/dreamina/idle01-frames', count: 447 } }} />
+    {/* نماذج حساب المحتوى */}
+    <Composition id="Pilot1" component={Pilot1} durationInFrames={framesFor(W1)} fps={30} width={1080} height={1920} />
+    <Composition id="Pilot2" component={Pilot2} durationInFrames={framesFor(W2)} fps={30} width={1080} height={1920} />
+    <Composition id="Pilot3" component={Pilot3} durationInFrames={framesFor(W3)} fps={30} width={1080} height={1920} />
   </>
 );
