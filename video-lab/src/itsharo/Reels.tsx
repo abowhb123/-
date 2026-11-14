@@ -47,3 +47,31 @@ export const Itsharo01: React.FC = () => {
   return <ItsharoReel series="حقك تعرف" voice="character/vo/itsharo-01.mp3" words={I1} scenes={scenes} punch={[13, 36, 40, 53, 71, 74]}
     sfx={<><Sfx at={t(12)} name="pop-high" /><Sfx at={t(36)} name="ding" volume={0.3} /><Sfx at={t(52)} name="ding" volume={0.35} /><Sfx at={t(68)} name="pop-high" /><Sfx at={t(74)} name="ding" volume={0.35} /></>} />;
 };
+
+// ═══ تجربة الصوت (15 ثانية): مقطع من تسجيل أبو فواز بعد Voice Changer ═══
+import wvt from '../data/itsharo-voicetest.words.json';
+export const IVT = wvt as Word[];
+export const ItsharoVoiceTest: React.FC = () => {
+  const t = at(IVT);
+  const end = D + IVT[IVT.length - 1].e;
+  const scenes: IScene[] = [
+    { at: 0, pose: 'stand',
+      main: <><In at={0.1} kind="pop"><div style={T.big}>عندك <Pill>مشروع</Pill><br />أو فكرة؟</div></In></>,
+      side: <In at={t(4)} kind="pop"><Sticker kind="question" size={250} /></In> },
+    { at: 8, pose: 'explain', full: true,
+      main: <In at={t(8)} kind="pop"><div style={{ ...T.big, color: C.cream, fontSize: 110 }}>لا تنتظر<br /><span style={{ color: C.sand }}>الظروف المثالية</span></div></In>,
+      side: <In at={t(10)} kind="pop"><Sticker kind="cross" size={250} /></In> },
+    { at: 13, pose: 'point',
+      main: <In at={t(13)} kind="whip"><Card accent={C.sand}><div style={{ ...T.line, fontSize: 70, textAlign: 'center' }}>لأنها ما راح تكون<br /><span style={{ color: C.red }}>أبداً</span></div></Card></In>,
+      side: <In at={t(17)} kind="pop"><Sticker kind="alert" size={250} /></In> },
+    { at: 18, pose: 'explain',
+      main: <>
+        <In at={t(18)} kind="whip"><Card style={{ padding: '22px 40px' }}><div style={{ ...T.line, fontSize: 62 }}>✓ ابدأ باللي عندك</div></Card></In>
+        <In at={t(22)} kind="whip"><Card style={{ padding: '22px 40px' }}><div style={{ ...T.line, fontSize: 62 }}>✓ تعلّم من أخطائك</div></Card></In>
+        <In at={t(25)} kind="whip"><Card accent={C.green} style={{ padding: '22px 40px' }}><div style={{ ...T.line, fontSize: 62 }}>✓ خطوة بخطوة</div></Card></In>
+      </>,
+      side: <><In at={t(27)} kind="pop"><Sticker kind="check" size={230} /></In><In at={end + 0.1} kind="pop"><div style={{ ...T.big, fontSize: 64 }}>معك إتشارو</div><div style={{ ...T.sub, color: C.sand, fontWeight: 800 }}>سنّعها!</div></In></> },
+  ];
+  return <ItsharoReel series="إتشارو" voice="character/vo/itsharo-voicetest.mp3" words={IVT} scenes={scenes} punch={[3, 9, 17, 28]}
+    sfx={<><Sfx at={t(10)} name="pop-high" /><Sfx at={t(17)} name="ding" volume={0.3} /><Sfx at={t(27)} name="pop-high" /><Sfx at={end + 0.1} name="ding" volume={0.3} /></>} />;
+};
