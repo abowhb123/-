@@ -48,8 +48,8 @@ if __name__ == '__main__':
     for k in range(a.takes):
         base = f'{a.out_base}.take{k + 1}'
         # تنويع بسيط في الإعدادات بين النسخ
-        stab = [0.45, 0.55, 0.38][k % 3]
-        tts(a.text, base, a.model, stability=stab, similarity=0.88, style=0.22)
+        stab = [0.5, 0.55, 0.45][k % 3]
+        tts(a.text, base, a.model, stability=stab, similarity=0.75, style=0.0)
         pcm = subprocess.run(['ffmpeg', '-v', 'error', '-i', base + '.mp3', '-f', 's16le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout
         audio = np.frombuffer(pcm, np.int16).astype(np.float32) / 32768
         segs, _ = wm.transcribe(audio, language='ar', beam_size=5)

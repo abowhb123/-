@@ -19,7 +19,8 @@ VOICE_ID = 'eZLVMA6wnkWDKeL1JDhx'  # ابو وهب
 API = 'https://api.elevenlabs.io/v1'
 
 
-def tts(text, out_base, model='eleven_multilingual_v2', stability=0.45, similarity=0.85, style=0.25):
+# الافتراضي = إعدادات صوت "ابو وهب" في ElevenLabs (الأقرب للصوت الأصلي ومخارج الحروف)
+def tts(text, out_base, model='eleven_multilingual_v2', stability=0.5, similarity=0.75, style=0.0):
     body = {
         'text': text,
         'model_id': model,

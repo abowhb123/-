@@ -11,6 +11,8 @@ import { Pilot1, Pilot2, Pilot3, W1, W2, W3 } from './pilots/Pilots';
 import { framesFor } from './pilots/ReelShell';
 import { PilotV1, PilotV2, PilotV3, V1, V2, V3 } from './pilots/PilotsV2';
 import { framesFor as framesV2 } from './pilots/Engine';
+import { Itsharo01, I1 } from './itsharo/Reels';
+import { framesFor as framesI } from './itsharo/Itsharo';
 import words from './data/voice-preview.words.json';
 
 export const RemotionRoot: React.FC = () => (
@@ -37,5 +39,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="PilotV1" component={PilotV1} durationInFrames={framesV2(V1)} fps={30} width={1080} height={1920} />
     <Composition id="PilotV2" component={PilotV2} durationInFrames={framesV2(V2)} fps={30} width={1080} height={1920} />
     <Composition id="PilotV3" component={PilotV3} durationInFrames={framesV2(V3)} fps={30} width={1080} height={1920} />
+    {/* إتشارو */}
+    <Composition id="Itsharo01" component={Itsharo01} durationInFrames={framesI(I1)} fps={30} width={1080} height={1920} />
   </>
 );
