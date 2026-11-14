@@ -1,12 +1,12 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
-import { Saudi } from './characters/Saudi';
+import { SaudiReal } from './characters/SaudiReal';
 
-// لوحة الكاركتر: الحالات جنب بعض للمراجعة
+// لوحة الكاركتر (شبه واقعي): مبتسم، يتكلم، يرمش
 export const CharacterSheet: React.FC = () => (
   <AbsoluteFill style={{ background: '#FFF8EC', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center', gap: 20 }}>
-    <Saudi width={560} />
-    <Saudi width={560} mouth={0.7} brow={0.5} look={-0.6} />
-    <Saudi width={560} headwear="shmagh" />
+    <SaudiReal width={560} />
+    <SaudiReal width={560} mouth={0.7} brow={0.5} look={-0.6} />
+    <SaudiReal width={560} blink={1} look={0.5} />
   </AbsoluteFill>
 );
