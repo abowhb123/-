@@ -9,6 +9,8 @@ import { VoiceTest } from './VoiceTest';
 import { Reel01, REEL01_FRAMES } from './Reel01';
 import { Pilot1, Pilot2, Pilot3, W1, W2, W3 } from './pilots/Pilots';
 import { framesFor } from './pilots/ReelShell';
+import { PilotV1, PilotV2, PilotV3, V1, V2, V3 } from './pilots/PilotsV2';
+import { framesFor as framesV2 } from './pilots/Engine';
 import words from './data/voice-preview.words.json';
 
 export const RemotionRoot: React.FC = () => (
@@ -32,5 +34,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Pilot1" component={Pilot1} durationInFrames={framesFor(W1)} fps={30} width={1080} height={1920} />
     <Composition id="Pilot2" component={Pilot2} durationInFrames={framesFor(W2)} fps={30} width={1080} height={1920} />
     <Composition id="Pilot3" component={Pilot3} durationInFrames={framesFor(W3)} fps={30} width={1080} height={1920} />
+    <Composition id="PilotV1" component={PilotV1} durationInFrames={framesV2(V1)} fps={30} width={1080} height={1920} />
+    <Composition id="PilotV2" component={PilotV2} durationInFrames={framesV2(V2)} fps={30} width={1080} height={1920} />
+    <Composition id="PilotV3" component={PilotV3} durationInFrames={framesV2(V3)} fps={30} width={1080} height={1920} />
   </>
 );
