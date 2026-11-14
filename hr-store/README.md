@@ -36,5 +36,5 @@
 - الخطوط (معتمد، الخطوة 4): Alexandria بثلاث أوزان، والأحجام في `brand/04-الخطوط.md`
 - الشخصية: شاب سعودي بثوب وشماغ (ثلاثي الأبعاد، مستوحى من أبو فواز)، اسمه يتحدد لاحقاً
   - الرسم: `video-lab/src/characters/Saudi.tsx`
-  - التحريك والكلام: `video-lab/src/characters/TalkingSaudi.tsx` (الفم يتبع ملف الصوت)
+  - الحركة المعتمدة: مقاطع Dreamina بعد قص الخلفية (`video-lab/tools/cutout_video.py` و`LiveCharacter.tsx`)
   - مثال: `video-lab/src/CharacterTest.tsx`

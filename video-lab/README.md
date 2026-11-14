@@ -71,3 +71,13 @@ apt-get install -y libpango1.0-dev espeak-ng   # Manim + صوت تجريبي
 
 > صور الكاركتر وملفات الصوت في `public/character/` ما تنرفع على GitHub (خاصة).
 > مفتاح ElevenLabs محفوظ في بيئة السحابة video-lab، وما ينكتب في الكود.
+
+### الكاركتر الحي (المعتمد)
+1. ولّد مقطع للكاركتر في Dreamina (Image to Video) من `sanaha-9x16-1080x1920.png`، بوصف "listening and reacting, mouth closed".
+2. احفظه في `public/character/dreamina/` وجهّزه:
+   ```bash
+   .venv/bin/python tools/cutout_video.py public/character/dreamina/idle02.mp4
+   ```
+3. في الريل: `live={{ dir: 'character/dreamina/idle02-frames', count: عدد_الفريمات }}`
+
+> قبل النشر التجاري: تأكد من شروط Dreamina لاستخدام المقاطع تجارياً.
