@@ -4,6 +4,7 @@ import { ArabicGsap } from './ArabicGsap';
 import { JobAd } from './JobAd';
 import { Welcome } from './Welcome';
 import { CharacterTest } from './CharacterTest';
+import { CharacterSheet } from './CharacterSheet';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -15,5 +16,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Welcome" component={Welcome} durationInFrames={450} fps={30} width={1920} height={1080} />
     {/* تجربة شخصية سنعها */}
     <Composition id="CharacterTest" component={CharacterTest} durationInFrames={270} fps={30} width={1080} height={1920} />
+    <Composition id="CharacterSheet" component={CharacterSheet} durationInFrames={1} fps={30} width={1760} height={720} />
   </>
 );
