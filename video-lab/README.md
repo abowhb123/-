@@ -57,3 +57,17 @@ python3 -m venv .venv
 .venv/bin/pip install whisperx
 apt-get install -y libpango1.0-dev espeak-ng   # Manim + صوت تجريبي
 ```
+
+## ريلز سنعها: من النص إلى الفيديو
+
+1. **الصوت** (بصوت "ابو وهب" المنسوخ في ElevenLabs، نموذج Multilingual v2):
+   ```bash
+   .venv/bin/python tools/tts.py "النص باللهجة السعودية" public/character/vo/reel02
+   cp public/character/vo/reel02.words.json src/data/
+   ```
+   يطلع ملف mp3، وتوقيت كل كلمة للترجمة.
+2. **الفيديو:** انسخ `src/Reel01.tsx` إلى `Reel02.tsx`، وعدّل المقاطع (`CHUNKS`) والمشاهد، وسجّله في `Root.tsx`.
+3. **التصدير:** `npx remotion render src/index.ts Reel02 out/private/Reel02.mp4`
+
+> صور الكاركتر وملفات الصوت في `public/character/` ما تنرفع على GitHub (خاصة).
+> مفتاح ElevenLabs محفوظ في بيئة السحابة video-lab، وما ينكتب في الكود.
